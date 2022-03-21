@@ -25,8 +25,10 @@ module Control
 	output [2:0]ALU_Op_o
 );
 
-localparam R_Type				= 7'h33;
-localparam I_Type_LOGIC		= 7'h13;
+localparam R_Type				= 7'b0110011;
+localparam I_Type_LOGIC		= 7'h0010011;
+
+
 
 reg [8:0] control_values;
 
