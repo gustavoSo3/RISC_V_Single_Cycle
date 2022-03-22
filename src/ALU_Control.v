@@ -32,6 +32,7 @@ localparam I_Type_OR			= 7'bx_001_110;
 //S types
 //B types
 //U types
+localparam U_Type_LUI		= 7'bx_010_xxx;
 
 reg [3:0] alu_control_values;
 wire [6:0] selector;
@@ -49,6 +50,8 @@ always@(selector)begin
 		//S types
 		//B types
 		//U types
+		U_Type_LUI:			alu_control_values = 4'b0101;
+		
 	
 
 		default: alu_control_values = 4'b00_00;

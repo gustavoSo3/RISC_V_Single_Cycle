@@ -26,6 +26,7 @@ module ALU
 localparam ADD 	= 4'b0000;
 localparam SUB		= 4'b0001;
 localparam OR		= 4'b0011;
+localparam LUI		= 4'b0101;
 
    
    always @ (A_i or B_i or ALU_Operation_i)
@@ -37,6 +38,8 @@ localparam OR		= 4'b0011;
 			ALU_Result_o = A_i - B_i;
 		OR:
 			ALU_Result_o = A_i | B_i;
+		LUI:
+			ALU_Result_o = B_i << 12;
 		default:
 			ALU_Result_o = 0;
 		endcase // case(control)
