@@ -20,13 +20,14 @@ module Immediate_Unit
 );
 
 
+localparam I_Type				= 7'b0010011;
 
 always@(op_i or Instruction_bus_i) begin
-
-	if(op_i == 7'h13)
-		Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31:20]};// I format
-	else
-		Immediate_o = 0;// U format
+	case(op_i)
+	I_Type: Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31:20]};// I format
+	default:
+		Immediate_o = 0;
+	endcase
 end
 
 
