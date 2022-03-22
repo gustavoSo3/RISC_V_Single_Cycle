@@ -23,8 +23,13 @@ module ALU_Control
 
 );
 
+//R types
 localparam R_Type_ADD		= 7'b0_000_000;
+//I types
 localparam I_Type_ADDI		= 7'bx_001_000;
+//S types
+//B types
+//U types
 
 reg [3:0] alu_control_values;
 wire [6:0] selector;
@@ -33,8 +38,13 @@ assign selector = {funct7_i, ALU_Op_i, funct3_i};
 
 always@(selector)begin
 	casex(selector)
+		//R types
 		R_Type_ADD:			alu_control_values = 4'b0000;
+		//I types
 		I_Type_ADDI:		alu_control_values = 4'b0000;
+		//S types
+		//B types
+		//U types
 	
 
 		default: alu_control_values = 4'b00_00;
