@@ -29,6 +29,7 @@ localparam R_Type_SUB		= 7'b1_000_000;
 //I types
 localparam I_Type_ADDI		= 7'bx_001_000;
 localparam I_Type_OR			= 7'bx_001_110;
+localparam I_Type_SRLI		= 7'b0_001_101;
 //S types
 //B types
 //U types
@@ -47,6 +48,7 @@ always@(selector)begin
 		//I types
 		I_Type_ADDI:		alu_control_values = 4'b0000;
 		I_Type_OR:			alu_control_values = 4'b0011;
+		I_Type_SRLI:		alu_control_values = 4'b0110;
 		//S types
 		//B types
 		//U types
