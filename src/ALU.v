@@ -28,6 +28,7 @@ localparam SUB		= 4'b0001;
 localparam OR		= 4'b0011;
 localparam LUI		= 4'b0101;
 localparam SR		= 4'b0110;
+localparam SL		= 4'b0111;
 
    
    always @ (A_i or B_i or ALU_Operation_i)
@@ -43,6 +44,8 @@ localparam SR		= 4'b0110;
 			ALU_Result_o = B_i << 12;
 		SR:
 			ALU_Result_o = A_i >> B_i;
+		SL:
+			ALU_Result_o = A_i << B_i;
 		default:
 			ALU_Result_o = 0;
 		endcase // case(control)
