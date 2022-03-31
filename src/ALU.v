@@ -25,6 +25,7 @@ module ALU
 
 localparam ADD 	= 4'b0000;
 localparam SUB		= 4'b0001;
+localparam AND		= 4'b0010;
 localparam OR		= 4'b0011;
 localparam LUI		= 4'b0101;
 localparam SR		= 4'b0110;
@@ -38,6 +39,8 @@ localparam SL		= 4'b0111;
 			ALU_Result_o = A_i + B_i;
 		SUB:
 			ALU_Result_o = A_i - B_i;
+		AND:
+			ALU_Result_o = A_i & B_i;
 		OR:
 			ALU_Result_o = A_i | B_i;
 		LUI:
