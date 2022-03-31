@@ -22,10 +22,12 @@ module Immediate_Unit
 
 localparam I_Type				= 7'b0010011;
 localparam U_Type				= 7'b0110111;
+localparam S_Type				= 7'b0100011;
 
 always@(op_i or Instruction_bus_i) begin
 	case(op_i)
 	I_Type: Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31:20]};// I format
+	S_Type: Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31:25],Instruction_bus_i[11:7]};//S format
 	U_Type: Immediate_o = {{12{Instruction_bus_i[31]}},Instruction_bus_i[31:12]};// U format
 	default:
 		Immediate_o = 0;
