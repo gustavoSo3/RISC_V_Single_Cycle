@@ -68,6 +68,8 @@ wire [3:0] alu_operation_w;
 /**Instruction Bus**/	
 wire [31:0] instruction_bus_w;
 
+/**Memory read**/
+wire [31:0] read_memory_w;
 
 //******************************************************************/
 //******************************************************************/
@@ -108,6 +110,19 @@ PROGRAM_MEMORY
 	.Instruction_o(instruction_bus_w)
 );
 
+Data_Memory
+#(
+	.DATA_WIDTH(32),
+	.MEMORY_DEPTH(DATA_MEMORY_DEPTH)
+)
+DATA_MEMORY(
+	.clk(clk),
+	.Mem_Write_i(mem_write_w),
+	.Mem_Read_i(mem_read_w),
+	.Write_Data_i(read_data_2_w),
+	.Address_i(alu_result_w),
+	.Read_Data_o(read_memory_w)
+);
 
 Adder_32_Bits
 PC_PLUS_4
