@@ -20,7 +20,7 @@
 module RISC_V_Single_Cycle
 #(
 	parameter PROGRAM_MEMORY_DEPTH = 64,
-	parameter DATA_MEMORY_DEPTH = 128
+	parameter DATA_MEMORY_DEPTH = 256
 )
 
 (
