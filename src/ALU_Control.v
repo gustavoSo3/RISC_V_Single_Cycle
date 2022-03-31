@@ -22,8 +22,8 @@ module ALU_Control
 	output [3:0] ALU_Operation_o
 
 );
-
-//R types
+										
+//R types							 f7 upc  f3
 localparam R_Type_ADD		= 7'b0_000_000;
 localparam R_Type_SUB		= 7'b1_000_000;
 //I types
