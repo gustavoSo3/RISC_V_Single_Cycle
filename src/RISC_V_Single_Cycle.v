@@ -71,6 +71,9 @@ wire [31:0] instruction_bus_w;
 /**Memory read**/
 wire [31:0] read_memory_w;
 
+/**Selected data**/
+wire [31:0] selected_data_w;
+
 //******************************************************************/
 //******************************************************************/
 //******************************************************************/
@@ -151,7 +154,7 @@ REGISTER_FILE_UNIT
 	.Write_Register_i(instruction_bus_w[11:7]),
 	.Read_Register_1_i(instruction_bus_w[19:15]),
 	.Read_Register_2_i(instruction_bus_w[24:20]),
-	.Write_Data_i(alu_result_w),
+	.Write_Data_i(selected_data_w),
 	.Read_Data_1_o(read_data_1_w),
 	.Read_Data_2_o(read_data_2_w)
 
@@ -182,6 +185,19 @@ MUX_DATA_OR_IMM_FOR_ALU
 
 );
 
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+MUX_MEMORY_OR_ALU
+(
+	.Selector_i(mem_to_reg_w),
+	.Mux_Data_0_i(alu_result_w),
+	.Mux_Data_1_i(read_memory_w),
+	
+	.Mux_Output_o(selected_data_w)
+
+);
 
 ALU_Control
 ALU_CONTROL_UNIT
