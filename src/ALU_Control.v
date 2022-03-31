@@ -33,6 +33,7 @@ localparam R_Type_XOR		= 7'b0_000_100;
 localparam I_Type_ADDI		= 7'bx_001_000;
 localparam I_Type_ANDI		= 7'bx_001_111;
 localparam I_Type_ORI		= 7'bx_001_110;
+localparam I_Type_XORI		= 7'bx_001_100;
 localparam I_Type_SRLI		= 7'b0_001_101;
 localparam I_Type_SLLI		= 7'b0_001_001;
 //S types
@@ -57,6 +58,7 @@ always@(selector)begin
 		I_Type_ADDI:		alu_control_values = 4'b0000;
 		I_Type_ANDI:		alu_control_values = 4'b0010;
 		I_Type_ORI:			alu_control_values = 4'b0011;
+		I_Type_XORI:		alu_control_values = 4'b0100;
 		I_Type_SRLI:		alu_control_values = 4'b0110;
 		I_Type_SLLI:		alu_control_values = 4'b0111;
 		//S types
