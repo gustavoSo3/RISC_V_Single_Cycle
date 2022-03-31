@@ -34,7 +34,7 @@ localparam I_Type_SLLI		= 7'b0_001_001;
 //S types
 //B types
 //U types
-localparam U_Type_LUI		= 7'bx_010_xxx;
+localparam U_Type_LUI		= 7'bx_100_xxx;
 
 reg [3:0] alu_control_values;
 wire [6:0] selector;
