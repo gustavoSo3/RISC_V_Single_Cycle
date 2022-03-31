@@ -27,6 +27,7 @@ localparam ADD 	= 4'b0000;
 localparam SUB		= 4'b0001;
 localparam AND		= 4'b0010;
 localparam OR		= 4'b0011;
+localparam XOR		= 4'b0100;
 localparam LUI		= 4'b0101;
 localparam SR		= 4'b0110;
 localparam SL		= 4'b0111;
@@ -43,6 +44,8 @@ localparam SL		= 4'b0111;
 			ALU_Result_o = A_i & B_i;
 		OR:
 			ALU_Result_o = A_i | B_i;
+		XOR:
+			ALU_Result_o = A_i ^ B_i;
 		LUI:
 			ALU_Result_o = B_i << 12;
 		SR:
