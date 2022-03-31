@@ -30,7 +30,7 @@ localparam R_Type_AND		= 7'b0_000_111;
 //I types
 localparam I_Type_ADDI		= 7'bx_001_000;
 localparam I_Type_ANDI		= 7'bx_001_111;
-localparam I_Type_ORI			= 7'bx_001_110;
+localparam I_Type_ORI		= 7'bx_001_110;
 localparam I_Type_SRLI		= 7'b0_001_101;
 localparam I_Type_SLLI		= 7'b0_001_001;
 //S types
