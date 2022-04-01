@@ -49,6 +49,8 @@ localparam B_Type_BLT		= 7'bx_101_100;
 localparam B_Type_BGE		= 7'bx_101_101;
 //U types
 localparam U_Type_LUI		= 7'bx_100_xxx;
+//J Types
+localparam J_Type_JAL		= 7'bx_110_xxx;
 
 reg [3:0] alu_control_values;
 wire [6:0] selector;
@@ -83,6 +85,8 @@ always@(selector)begin
 		B_Type_BGE:			alu_control_values = 4'b1100;
 		//U types
 		U_Type_LUI:			alu_control_values = 4'b0101;
+		//J Types
+		J_Type_JAL:			alu_control_values = 4'b1101;
 		
 	
 
