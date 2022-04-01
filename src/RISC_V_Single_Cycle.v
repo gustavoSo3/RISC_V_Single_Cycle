@@ -45,6 +45,7 @@ wire mem_to_reg_w;
 wire mem_write_w;
 wire mem_read_w;
 wire [2:0] alu_op_w;
+wire branch_w;
 
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
@@ -89,6 +90,7 @@ CONTROL_UNIT
 	/****/
 	.OP_i(instruction_bus_w[6:0]),
 	/** outputus**/
+	.Branch_o(branch_w),
 	.ALU_Op_o(alu_op_w),
 	.ALU_Src_o(alu_src_w),
 	.Reg_Write_o(reg_write_w),
