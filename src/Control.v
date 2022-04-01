@@ -30,6 +30,7 @@ localparam I_Type_LOGIC		= 7'b0010011;
 localparam I_Type_MEMORY	= 7'b0000011;
 localparam S_Type				= 7'b0100011;
 localparam U_Type				= 7'b0110111;
+localparam B_Type				= 7'b1100011;
 
 
 reg [8:0] control_values;
@@ -41,6 +42,7 @@ always@(OP_i) begin
 		I_Type_MEMORY: control_values = 9'b011_10_1_010;
 		S_Type:			control_values = 9'b000_01_1_010;
 		U_Type:			control_values = 9'b001_00_1_100;
+		B_Type:			control_values = 9'b100_00_0_101;
 
 		default:
 			control_values= 9'b000_00_000;
