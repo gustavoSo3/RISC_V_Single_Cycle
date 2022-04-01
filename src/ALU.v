@@ -31,6 +31,10 @@ localparam XOR		= 4'b0100;
 localparam LUI		= 4'b0101;
 localparam SR		= 4'b0110;
 localparam SL		= 4'b0111;
+localparam BEQ		= 4'b1000;
+localparam BNE		= 4'b1010;
+localparam BLT		= 4'b1011;
+localparam BGE		= 4'b1100;
 
    
    always @ (A_i or B_i or ALU_Operation_i)
@@ -52,6 +56,14 @@ localparam SL		= 4'b0111;
 			ALU_Result_o = A_i >> B_i;
 		SL:
 			ALU_Result_o = A_i << B_i;
+		BEQ:
+			ALU_Result_o = A_i == B_i ?{32{1'b0}}:{32{1'b1}};
+		BNE:
+			ALU_Result_o = A_i != B_i ?{32{1'b0}}:{32{1'b1}};
+		BLT:
+			ALU_Result_o = A_i < B_i  ?{32{1'b0}}:{32{1'b1}};
+		BGE:
+			ALU_Result_o = A_i >= B_i ?{32{1'b0}}:{32{1'b1}};
 		default:
 			ALU_Result_o = 0;
 		endcase // case(control)
