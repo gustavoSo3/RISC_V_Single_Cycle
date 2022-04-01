@@ -49,6 +49,7 @@ wire [2:0] alu_op_w;
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
 wire [31:0] pc_w;
+wire [31:0] pc_plus_immediate_w;
 
 
 /**Register File**/
@@ -136,6 +137,14 @@ PC_PLUS_4
 	.Data1(4),
 	
 	.Result(pc_plus_4_w)
+);
+Adder_32_Bits
+PC_PLUS_IMMD
+(
+	.Data0(pc_w),
+	.Data1(inmmediate_data_w),
+	
+	.Result(pc_plus_immediate_w)
 );
 
 
