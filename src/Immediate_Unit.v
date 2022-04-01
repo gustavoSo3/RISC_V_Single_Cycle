@@ -24,6 +24,7 @@ localparam I_Type				= 7'b0010011;
 localparam U_Type				= 7'b0110111;
 localparam S_Type				= 7'b0100011;
 localparam B_Type				= 7'b1100011;
+localparam J_Type				= 7'b1101111;
 
 always@(op_i or Instruction_bus_i) begin
 	case(op_i)
@@ -31,6 +32,7 @@ always@(op_i or Instruction_bus_i) begin
 	S_Type: Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31:25],Instruction_bus_i[11:7]};//S format
 	U_Type: Immediate_o = {{12{Instruction_bus_i[31]}},Instruction_bus_i[31:12]};// U format
 	B_Type: Immediate_o = {{20{Instruction_bus_i[31]}},Instruction_bus_i[31],Instruction_bus_i[7],Instruction_bus_i[30:25],Instruction_bus_i[11:8],1'b0};// B format
+	J_Type: Immediate_o = {{11{Instruction_bus_i[31]}},Instruction_bus_i[31],Instruction_bus_i[19:12],Instruction_bus_i[20],Instruction_bus_i[30:21], 1'b0};
 	default:
 		Immediate_o = 0;
 	endcase

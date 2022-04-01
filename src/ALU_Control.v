@@ -39,6 +39,7 @@ localparam I_Type_XORI		= 7'bx_001_100;
 localparam I_Type_SRLI		= 7'b0_001_101;
 localparam I_Type_SLLI		= 7'b0_001_001;
 localparam I_Type_LW			= 7'bx_010_010;
+localparam I_Type_JALR		= 7'bx_111_000;
 //S types
 localparam S_Type_SW			= 7'bx_010_010;
 //B types
@@ -48,6 +49,8 @@ localparam B_Type_BLT		= 7'bx_101_100;
 localparam B_Type_BGE		= 7'bx_101_101;
 //U types
 localparam U_Type_LUI		= 7'bx_100_xxx;
+//J Types
+localparam J_Type_JAL		= 7'bx_110_xxx;
 
 reg [3:0] alu_control_values;
 wire [6:0] selector;
@@ -72,6 +75,7 @@ always@(selector)begin
 		I_Type_SRLI:		alu_control_values = 4'b0110;
 		I_Type_SLLI:		alu_control_values = 4'b0111;
 		I_Type_LW:			alu_control_values = 4'b0000;
+		I_Type_JALR:		alu_control_values = 4'b0000;
 		//S types
 		S_Type_SW:			alu_control_values = 4'b0000;
 		//B types
@@ -81,6 +85,8 @@ always@(selector)begin
 		B_Type_BGE:			alu_control_values = 4'b1100;
 		//U types
 		U_Type_LUI:			alu_control_values = 4'b0101;
+		//J Types
+		J_Type_JAL:			alu_control_values = 4'b1101;
 		
 	
 

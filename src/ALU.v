@@ -35,6 +35,7 @@ localparam BEQ		= 4'b1000;
 localparam BNE		= 4'b1010;
 localparam BLT		= 4'b1011;
 localparam BGE		= 4'b1100;
+localparam JAL		= 4'b1101;
 
    
    always @ (A_i or B_i or ALU_Operation_i)
@@ -64,6 +65,8 @@ localparam BGE		= 4'b1100;
 			ALU_Result_o = A_i < B_i  ?{32{1'b0}}:{32{1'b1}};
 		BGE:
 			ALU_Result_o = A_i >= B_i ?{32{1'b0}}:{32{1'b1}};
+		JAL:
+			ALU_Result_o = {32{1'b0}};
 		default:
 			ALU_Result_o = 0;
 		endcase // case(control)

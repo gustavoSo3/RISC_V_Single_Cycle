@@ -31,7 +31,7 @@ assign real_address = {2'b0, Address_i[16:2]};
 
 	initial
 	begin
-		$readmemh("D:/Dev/RISC_V_Single_Cycle/src/test_conditional_branching.dat", rom);
+		$readmemh("D:/Dev/RISC_V_Single_Cycle/src/hanoi_practica_1.dat", rom);
 	end
 
 	always @ (real_address)
