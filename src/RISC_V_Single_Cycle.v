@@ -26,7 +26,9 @@ module RISC_V_Single_Cycle
 (
 	// Inputs
 	input clk,
-	input reset
+	input reset,
+	
+	output [31:0] Instruction_result
 
 );
 //******************************************************************/
@@ -221,7 +223,7 @@ ALU_UNIT
 );
 
 
-
+assign Instruction_result = selected_data_w;
 
 endmodule
 
