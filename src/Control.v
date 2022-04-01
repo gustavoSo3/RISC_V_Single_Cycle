@@ -27,6 +27,8 @@ module Control
 
 localparam R_Type				= 7'b0110011;
 localparam I_Type_LOGIC		= 7'b0010011;
+localparam I_Type_MEMORY	= 7'b0000011;
+localparam S_Type				= 7'b0100011;
 localparam U_Type				= 7'b0110111;
 
 
@@ -36,6 +38,8 @@ always@(OP_i) begin
 	case(OP_i)//                     	  876_54_3_210
 		R_Type:		 	control_values = 9'b001_00_0_000;
 		I_Type_LOGIC:	control_values = 9'b001_00_1_001;
+		I_Type_MEMORY: control_values = 9'b011_10_1_010;
+		S_Type:			control_values = 9'b000_01_1_010;
 		U_Type:			control_values = 9'b001_00_1_100;
 
 		default:

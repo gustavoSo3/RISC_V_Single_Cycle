@@ -20,13 +20,15 @@
 module RISC_V_Single_Cycle
 #(
 	parameter PROGRAM_MEMORY_DEPTH = 64,
-	parameter DATA_MEMORY_DEPTH = 128
+	parameter DATA_MEMORY_DEPTH = 256
 )
 
 (
 	// Inputs
 	input clk,
-	input reset
+	input reset,
+	
+	output [31:0] Instruction_result
 
 );
 //******************************************************************/
@@ -68,6 +70,11 @@ wire [3:0] alu_operation_w;
 /**Instruction Bus**/	
 wire [31:0] instruction_bus_w;
 
+/**Memory read**/
+wire [31:0] read_memory_w;
+
+/**Selected data**/
+wire [31:0] selected_data_w;
 
 //******************************************************************/
 //******************************************************************/
@@ -108,6 +115,19 @@ PROGRAM_MEMORY
 	.Instruction_o(instruction_bus_w)
 );
 
+Data_Memory
+#(
+	.DATA_WIDTH(32),
+	.MEMORY_DEPTH(DATA_MEMORY_DEPTH)
+)
+DATA_MEMORY(
+	.clk(clk),
+	.Mem_Write_i(mem_write_w),
+	.Mem_Read_i(mem_read_w),
+	.Write_Data_i(read_data_2_w),
+	.Address_i(alu_result_w),
+	.Read_Data_o(read_memory_w)
+);
 
 Adder_32_Bits
 PC_PLUS_4
@@ -136,7 +156,7 @@ REGISTER_FILE_UNIT
 	.Write_Register_i(instruction_bus_w[11:7]),
 	.Read_Register_1_i(instruction_bus_w[19:15]),
 	.Read_Register_2_i(instruction_bus_w[24:20]),
-	.Write_Data_i(alu_result_w),
+	.Write_Data_i(selected_data_w),
 	.Read_Data_1_o(read_data_1_w),
 	.Read_Data_2_o(read_data_2_w)
 
@@ -167,6 +187,19 @@ MUX_DATA_OR_IMM_FOR_ALU
 
 );
 
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+MUX_MEMORY_OR_ALU
+(
+	.Selector_i(mem_to_reg_w),
+	.Mux_Data_0_i(alu_result_w),
+	.Mux_Data_1_i(read_memory_w),
+	
+	.Mux_Output_o(selected_data_w)
+
+);
 
 ALU_Control
 ALU_CONTROL_UNIT
@@ -190,7 +223,7 @@ ALU_UNIT
 );
 
 
-
+assign Instruction_result = selected_data_w;
 
 endmodule
 
