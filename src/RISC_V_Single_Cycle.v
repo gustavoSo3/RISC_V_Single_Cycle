@@ -45,10 +45,14 @@ wire mem_to_reg_w;
 wire mem_write_w;
 wire mem_read_w;
 wire [2:0] alu_op_w;
+wire branch_selector_w;
+wire branch_w;
 
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
 wire [31:0] pc_w;
+wire [31:0] pc_plus_immediate_w;
+wire [31:0] pc_selected_w;
 
 
 /**Register File**/
@@ -60,6 +64,7 @@ wire [31:0] inmmediate_data_w;
 
 /**ALU**/
 wire [31:0] alu_result_w;
+wire zero_w;
 
 /**Multiplexer MUX_DATA_OR_IMM_FOR_ALU**/
 wire [31:0] read_data_2_or_imm_w;
@@ -76,6 +81,7 @@ wire [31:0] read_memory_w;
 /**Selected data**/
 wire [31:0] selected_data_w;
 
+assign branch_selector_w = branch_w & zero_w;
 //******************************************************************/
 //******************************************************************/
 //******************************************************************/
@@ -87,6 +93,7 @@ CONTROL_UNIT
 	/****/
 	.OP_i(instruction_bus_w[6:0]),
 	/** outputus**/
+	.Branch_o(branch_w),
 	.ALU_Op_o(alu_op_w),
 	.ALU_Src_o(alu_src_w),
 	.Reg_Write_o(reg_write_w),
@@ -101,7 +108,7 @@ PROGRAM_COUNTER
 (
 	.clk(clk),
 	.reset(reset),
-	.Next_PC(pc_plus_4_w),
+	.Next_PC(pc_selected_w),
 	.PC_Value(pc_w)
 );
 
@@ -136,6 +143,14 @@ PC_PLUS_4
 	.Data1(4),
 	
 	.Result(pc_plus_4_w)
+);
+Adder_32_Bits
+PC_PLUS_IMMD
+(
+	.Data0(pc_w),
+	.Data1(inmmediate_data_w),
+	
+	.Result(pc_plus_immediate_w)
 );
 
 
@@ -201,6 +216,20 @@ MUX_MEMORY_OR_ALU
 
 );
 
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+MUX_PC_PLUS4_OR_PC_PLUSIMMD
+(
+	.Selector_i(branch_selector_w),
+	.Mux_Data_0_i(pc_plus_4_w),
+	.Mux_Data_1_i(pc_plus_immediate_w),
+	
+	.Mux_Output_o(pc_selected_w)
+
+);
+
 ALU_Control
 ALU_CONTROL_UNIT
 (
@@ -219,9 +248,9 @@ ALU_UNIT
 	.ALU_Operation_i(alu_operation_w),
 	.A_i(read_data_1_w),
 	.B_i(read_data_2_or_imm_w),
-	.ALU_Result_o(alu_result_w)
+	.ALU_Result_o(alu_result_w),
+	.Zero_o(zero_w)
 );
-
 
 assign Instruction_result = selected_data_w;
 

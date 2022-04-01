@@ -42,6 +42,10 @@ localparam I_Type_LW			= 7'bx_010_010;
 //S types
 localparam S_Type_SW			= 7'bx_010_010;
 //B types
+localparam B_Type_BEQ		= 7'bx_101_000;
+localparam B_Type_BNE		= 7'bx_101_001;
+localparam B_Type_BLT		= 7'bx_101_100;
+localparam B_Type_BGE		= 7'bx_101_101;
 //U types
 localparam U_Type_LUI		= 7'bx_100_xxx;
 
@@ -71,6 +75,10 @@ always@(selector)begin
 		//S types
 		S_Type_SW:			alu_control_values = 4'b0000;
 		//B types
+		B_Type_BEQ:			alu_control_values = 4'b1000;
+		B_Type_BNE:			alu_control_values = 4'b1010;
+		B_Type_BLT:			alu_control_values = 4'b1011;
+		B_Type_BGE:			alu_control_values = 4'b1100;
 		//U types
 		U_Type_LUI:			alu_control_values = 4'b0101;
 		
