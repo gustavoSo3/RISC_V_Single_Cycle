@@ -187,7 +187,7 @@ IMM_UNIT
 );
 
 
-
+///********** DATA OR IMMIDEATE MUX *******/
 Multiplexer_2_to_1
 #(
 	.NBits(32)
@@ -201,7 +201,7 @@ MUX_DATA_OR_IMM_FOR_ALU
 	.Mux_Output_o(read_data_2_or_imm_w)
 
 );
-
+///********** MEMORY OR ALU MUX *******/
 Multiplexer_2_to_1
 #(
 	.NBits(32)
@@ -215,7 +215,7 @@ MUX_MEMORY_OR_ALU
 	.Mux_Output_o(selected_data_w)
 
 );
-
+///********** PC+4 OR PC+IMMEDIATE MUX*******/
 Multiplexer_2_to_1
 #(
 	.NBits(32)
@@ -226,8 +226,10 @@ MUX_PC_PLUS4_OR_PC_PLUSIMMD
 	.Mux_Data_0_i(pc_plus_4_w),
 	.Mux_Data_1_i(pc_plus_immediate_w),
 	
+///********** BRANCH OR UNCONDITIONAL JUMP MUX *******/
 	.Mux_Output_o(pc_selected_w)
 
+///********** SAVE DATA OR PC MUX *******/
 );
 
 ALU_Control
