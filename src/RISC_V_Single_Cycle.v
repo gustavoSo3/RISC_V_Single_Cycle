@@ -47,17 +47,21 @@ wire mem_read_w;
 wire [2:0] alu_op_w;
 wire branch_selector_w;
 wire branch_w;
+wire save_pc_w;
+wire pc_select_w;
 
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
 wire [31:0] pc_w;
 wire [31:0] pc_plus_immediate_w;
+wire [31:0] pc_selected_immd_or_4_w;
 wire [31:0] pc_selected_w;
 
 
 /**Register File**/
 wire [31:0] read_data_1_w;
 wire [31:0] read_data_2_w;
+wire [31:0] write_data_w;
 
 /**Inmmediate Unit**/
 wire [31:0] inmmediate_data_w;
@@ -99,7 +103,9 @@ CONTROL_UNIT
 	.Reg_Write_o(reg_write_w),
 	.Mem_to_Reg_o(mem_to_reg_w),
 	.Mem_Read_o(mem_read_w),
-	.Mem_Write_o(mem_write_w)
+	.Mem_Write_o(mem_write_w),
+	.Save_PC_o(save_pc_w),
+	.PC_Select_o(pc_select_w)
 );
 
 
@@ -171,7 +177,7 @@ REGISTER_FILE_UNIT
 	.Write_Register_i(instruction_bus_w[11:7]),
 	.Read_Register_1_i(instruction_bus_w[19:15]),
 	.Read_Register_2_i(instruction_bus_w[24:20]),
-	.Write_Data_i(selected_data_w),
+	.Write_Data_i(write_data_w),
 	.Read_Data_1_o(read_data_1_w),
 	.Read_Data_2_o(read_data_2_w)
 
@@ -226,10 +232,36 @@ MUX_PC_PLUS4_OR_PC_PLUSIMMD
 	.Mux_Data_0_i(pc_plus_4_w),
 	.Mux_Data_1_i(pc_plus_immediate_w),
 	
+	.Mux_Output_o(pc_selected_immd_or_4_w)
+
+);
 ///********** BRANCH OR UNCONDITIONAL JUMP MUX *******/
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+MUX_PC_IMMD4_OR_PC_ALU_RESULT
+(
+	.Selector_i(pc_select_w),
+	.Mux_Data_0_i(pc_selected_immd_or_4_w),
+	.Mux_Data_1_i(alu_result_w),
+	
 	.Mux_Output_o(pc_selected_w)
 
+);
 ///********** SAVE DATA OR PC MUX *******/
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+MUX_SAVE_PC_OR_SELECTED_DATA
+(
+	.Selector_i(save_pc_w),
+	.Mux_Data_0_i(selected_data_w),
+	.Mux_Data_1_i(pc_plus_4_w),
+	
+	.Mux_Output_o(write_data_w)
+
 );
 
 ALU_Control
