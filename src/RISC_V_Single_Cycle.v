@@ -61,6 +61,7 @@ wire [31:0] inmmediate_data_w;
 
 /**ALU**/
 wire [31:0] alu_result_w;
+wire zero_w;
 
 /**Multiplexer MUX_DATA_OR_IMM_FOR_ALU**/
 wire [31:0] read_data_2_or_imm_w;
@@ -228,9 +229,9 @@ ALU_UNIT
 	.ALU_Operation_i(alu_operation_w),
 	.A_i(read_data_1_w),
 	.B_i(read_data_2_or_imm_w),
-	.ALU_Result_o(alu_result_w)
+	.ALU_Result_o(alu_result_w),
+	.Zero_o(zero_w)
 );
-
 
 assign Instruction_result = selected_data_w;
 
