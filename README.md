@@ -13,12 +13,27 @@ En el video se encontraba en ``C:/PROJECTS/RISC_V_Single_Cycle`` Pero aqui fue r
 
 ## Current suport
 
-- ADD
-- ADDI
-- SUB
-- ORI
-- LUI
-- SRLI
-- SLLI
+- add
+- addi
+- sub
+- and
+- andi
+- or
+- ori
+- xor
+- xori
+- lui
+- srl
+- srli
+- sll
+- slli
+- lw
+- sw
+- beq
+- bne
+- blt
+- bge
+- jal
+- jalr
 
 Los codigos usados para las señales de control son obtenidos de [esta tabla](https://docs.google.com/spreadsheets/d/17gZE-4YvZ7H6U75zV1GhPLzIoo___D-5w76HqcmNv4o/edit?usp=sharing)
