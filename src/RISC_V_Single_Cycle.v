@@ -45,12 +45,14 @@ wire mem_to_reg_w;
 wire mem_write_w;
 wire mem_read_w;
 wire [2:0] alu_op_w;
+wire branch_selector_w;
 wire branch_w;
 
 /** Program Counter**/
 wire [31:0] pc_plus_4_w;
 wire [31:0] pc_w;
 wire [31:0] pc_plus_immediate_w;
+wire [31:0] pc_selected_w;
 
 
 /**Register File**/
@@ -79,6 +81,7 @@ wire [31:0] read_memory_w;
 /**Selected data**/
 wire [31:0] selected_data_w;
 
+assign branch_selector_w = branch_w & zero_w;
 //******************************************************************/
 //******************************************************************/
 //******************************************************************/
@@ -105,7 +108,7 @@ PROGRAM_COUNTER
 (
 	.clk(clk),
 	.reset(reset),
-	.Next_PC(pc_plus_4_w),
+	.Next_PC(pc_selected_w),
 	.PC_Value(pc_w)
 );
 
@@ -210,6 +213,20 @@ MUX_MEMORY_OR_ALU
 	.Mux_Data_1_i(read_memory_w),
 	
 	.Mux_Output_o(selected_data_w)
+
+);
+
+Multiplexer_2_to_1
+#(
+	.NBits(32)
+)
+MUX_PC_PLUS4_OR_PC_PLUSIMMD
+(
+	.Selector_i(branch_selector_w),
+	.Mux_Data_0_i(pc_plus_4_w),
+	.Mux_Data_1_i(pc_plus_immediate_w),
+	
+	.Mux_Output_o(pc_selected_w)
 
 );
 
